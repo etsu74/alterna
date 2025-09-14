@@ -150,6 +150,31 @@ The application builds to static exports where possible, with server-side render
 4. **User Experience**: Implement loading states and error boundaries throughout
 5. **Responsive Design**: Ensure mobile-first approach with desktop optimization
 
+## URGENT: Security Vulnerabilities Discovered (2025-09-13)
+
+⚠️ **CRITICAL SECURITY ISSUES FOUND - MUST FIX IMMEDIATELY**
+
+Security testing revealed multiple critical vulnerabilities in the current Supabase configuration:
+
+### 🚨 Critical Issues Found:
+1. **DELETE Access**: Anonymous users can delete records from `al_tr_events` table
+2. **Snapshot Access**: Anonymous users can read private `al_offering_snaps` table
+3. **Storage Listing**: Anonymous users can list files in private storage buckets
+
+### 🔧 Required Immediate Actions:
+1. **Fix RLS Policies**: Restrict DELETE and UPDATE permissions for anonymous users
+2. **Secure Snapshot Table**: Remove anonymous SELECT access from `al_offering_snaps`
+3. **Lock Storage Buckets**: Configure storage policies to deny anonymous listing
+4. **Re-run Security Tests**: Verify all vulnerabilities are resolved
+
+### 📍 Next Development Session Priority:
+**START WITH SECURITY FIXES BEFORE ANY OTHER DEVELOPMENT**
+
+Security test script available at: `test-security.js`
+Current vulnerabilities make the system unsafe for production deployment.
+
+---
+
 ## Common Tasks
 
 ### Adding New Components

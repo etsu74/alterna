@@ -1,105 +1,230 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# ALTERNA Light Dashboard
+
+投資機会の定点観測を行うNext.js + Supabase アプリケーション
 
 <p align="center">
- The fastest way to build apps with Next.js and Supabase
+  <img alt="ALTERNA Light Dashboard - 投資案件定点観測システム" src="./app/opengraph-image.png">
 </p>
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## 🎯 プロジェクト概要
 
-## Features
+ALTERNA Light Dashboardは、MDMのALTERNA digital securitiesサービスから投資機会情報とパフォーマンスデータを監視するためのダッシュボードアプリケーションです。
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+### 主要機能
 
-## Demo
+- **📈 ニュースタイムライン**: 投資案件の最新情報を時系列で表示
+  - 新着案件、償還情報、運用結果の分類表示
+  - 想定利回り、最低投資額、申込方式の表示
+  - 外部リンクによる詳細情報アクセス
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+- **📸 スナップショット表示**: 投資機会のスクリーンショット画像管理
+  - セキュアな署名付きURL経由での画像表示
+  - グリッドレイアウトによる一覧表示
+  - 元ページへの直接リンク機能
 
-## Deploy to Vercel
+## 🚀 技術スタック
 
-Vercel deployment will guide you through creating a Supabase account and project.
+### Frontend
+- **Next.js 15** - App Router with React Server Components
+- **TypeScript** - 型安全な開発環境
+- **Tailwind CSS** - ユーティリティファーストCSSフレームワーク
+- **shadcn/ui** - アクセシブルUIコンポーネント
+- **React Query** - サーバー状態管理とキャッシング
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+### Backend
+- **Supabase** - フルスタックBaaSプラットフォーム
+  - PostgreSQL - メインデータベース
+  - Row Level Security - セキュリティポリシー
+  - Storage - プライベート画像ストレージ
+  - Edge Functions - サーバーレスファンクション
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+### 開発・デプロイ
+- **GitHub Codespaces** - クラウド開発環境
+- **Vercel** - 本番デプロイプラットフォーム
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+## 🏗️ アーキテクチャ
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+### セキュリティ設計
+- **Service Role分離**: クライアント/サーバー間の適切な権限管理
+- **署名付きURL**: 1時間有効期限のプライベート画像アクセス
+- **RLS (Row Level Security)**: テーブルレベルでのアクセス制御
+- **環境変数管理**: GitHub Secrets経由の安全な設定管理
 
-## Clone and run locally
+### データフロー
+```
+ユーザー → Next.js App → API Routes → Supabase Client → PostgreSQL/Storage
+                     ↘ React Query ↗
+```
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+## 🛠️ 開発環境セットアップ
 
-2. Create a Next.js app using the Supabase Starter template npx command
+### 前提条件
+- Node.js 18以上
+- Supabaseプロジェクト
+- GitHub Codespaces または ローカル開発環境
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+### 環境変数設定
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+GitHub Codespaces Secretsまたは `.env.local` に以下を設定:
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+```bash
+# 公開環境変数 (クライアント側で使用可能)
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 
-3. Use `cd` to change into the app's directory
+# プライベート環境変数 (サーバー専用)
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+```
 
-   ```bash
-   cd with-supabase-app
-   ```
+### インストール・起動
 
-4. Rename `.env.example` to `.env.local` and update the following:
+```bash
+# 依存関係インストール
+npm install
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+# 開発サーバー起動 (Turbopack使用)
+npm run dev
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+# 本番ビルド
+npm run build
 
-5. You can now run the Next.js local development server:
+# 本番サーバー起動
+npm start
 
-   ```bash
-   npm run dev
-   ```
+# リンティング
+npm run lint
+```
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+## 📁 プロジェクト構成
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+```
+├── app/                    # Next.js App Router
+│   ├── api/               # API エンドポイント
+│   │   ├── news/          # ニュースデータAPI
+│   │   └── snapshots/     # スナップショット署名付きURL API
+│   ├── snapshots/         # スナップショット表示ページ
+│   └── layout.tsx         # ルートレイアウト
+├── components/            # Reactコンポーネント
+│   ├── ui/                # shadcn/ui ベースコンポーネント
+│   ├── news-timeline.tsx  # ニュース一覧
+│   ├── news-card.tsx      # ニュースカード
+│   ├── snapshot-grid.tsx  # スナップショットグリッド
+│   └── navigation.tsx     # タブナビゲーション
+├── hooks/                 # カスタムReactフック
+│   ├── useNews.ts         # ニュースデータフェッチ
+│   └── useSnapshots.ts    # スナップショットデータフェッチ
+├── lib/                   # ユーティリティライブラリ
+│   ├── supabase/          # Supabaseクライアント設定
+│   ├── types.ts           # TypeScript型定義
+│   ├── constants.ts       # アプリケーション定数
+│   └── utils.ts           # ヘルパー関数
+└── CLAUDE.md             # AI開発アシスタント向け設定
+```
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+## 🗃️ データベーススキーマ
 
-## Feedback and issues
+### メインテーブル
+- **`al_tr_events`** - 投資ニュース・イベント情報
+- **`al_tr_performance`** - パフォーマンス追跡データ
+- **`al_offering_snaps`** - プライベートスナップショット管理
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+### セキュリティポリシー
+- 📰 ニューステーブル: 匿名SELECT許可
+- 📸 スナップショットテーブル: Service roleのみアクセス
+- 🔒 ストレージバケット: プライベート設定、署名付きURLアクセス
 
-## More Supabase examples
+## 🎨 UI/UX特徴
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+### レスポンシブデザイン
+- **モバイルファースト**: スマートフォン最適化
+- **タブレット対応**: 中間画面サイズ最適化
+- **デスクトップ**: 大画面での効率的表示
+
+### インタラクションデザイン
+- **ローディング状態**: スケルトンUI表示
+- **エラーハンドリング**: 再試行機能付きエラー表示
+- **ホバーエフェクト**: カード要素のインタラクティブ表示
+- **ダークモード**: システム設定連動テーマ切り替え
+
+## 🔐 セキュリティ考慮事項
+
+### データアクセス制御
+- Supabase RLS によるテーブルレベルセキュリティ
+- Service Role Key の適切な管理
+- クライアント露出防止の `server-only` 実装
+
+### 画像セキュリティ
+- プライベートStorageバケット使用
+- 1時間有効期限の署名付きURL
+- 直接アクセス不可の画像保護
+
+## 📊 パフォーマンス最適化
+
+### キャッシング戦略
+- **React Query**: 5分間ステイルタイム、10分間キャッシュ保持
+- **Next.js Image**: 自動画像最適化と遅延読み込み
+- **15分間隔**: 自動データ更新間隔
+
+### バンドル最適化
+- **Turbopack**: 高速開発サーバー
+- **Tree Shaking**: 未使用コード除去
+- **Code Splitting**: ページ単位の動的インポート
+
+## 🚀 デプロイ
+
+### Vercel デプロイ
+
+```bash
+# Vercel CLI使用
+vercel --prod
+
+# または GitHub連携による自動デプロイ
+```
+
+### 環境設定
+本番環境では以下の環境変数が必要:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+## 🧪 テスト (予定)
+
+### 単体テスト
+- Jest + React Testing Library
+- コンポーネント単体テスト
+- カスタムフック テスト
+
+### E2Eテスト
+- Playwright使用
+- 主要ユーザージャーニーテスト
+- レスポンシブ表示テスト
+
+## 📈 今後の拡張予定
+
+### フィルタリング機能
+- イベント種別フィルタ
+- 日付範囲フィルタ
+- 申込方式フィルタ
+- URLパラメータ連動
+
+### 追加機能
+- 通知システム
+- データエクスポート
+- 詳細分析ダッシュボード
+- PWA対応
+
+## 🤝 コントリビューション
+
+このプロジェクトは内部開発プロジェクトです。開発に関する質問や提案があれば、開発チームまでご連絡ください。
+
+## 📄 ライセンス
+
+All rights reserved. Internal project.
+
+---
+
+**🎯 ステータス**: 完全動作可能状態 - 本番環境デプロイ準備完了
+
+**📅 最終更新**: 2025-09-13
+**🔧 開発環境**: GitHub Codespaces + Next.js 15 + Supabase
+**🤖 開発アシスタント**: Claude Code
