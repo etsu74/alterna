@@ -61,13 +61,13 @@ export function SnapshotGrid() {
             rel="noopener noreferrer"
             className="block"
           >
-            <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-100 mb-3 group-hover:shadow-lg transition-shadow">
+            <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-gray-100 mb-3 group-hover:shadow-lg transition-shadow">
               {snapshot.signed_url ? (
                 <Image
                   src={snapshot.signed_url}
                   alt={snapshot.title || 'Investment snapshot'}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-200"
+                  className="object-contain group-hover:scale-105 transition-transform duration-200"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   loading="lazy"
                 />

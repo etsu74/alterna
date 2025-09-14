@@ -35,7 +35,6 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query;
 
     if (error) {
-      console.error('Supabase query error:', error);
       return Response.json({
         ok: false,
         error: `Database error: ${error.message}`,
@@ -58,11 +57,9 @@ export async function GET(request: NextRequest) {
       created_at: item.published_at // Use published_at as created_at
     }));
 
-    console.log(`Found ${mappedData.length} news items`);
     return Response.json(mappedData);
 
-  } catch (error) {
-    console.error('News API error:', error);
+  } catch {
     return Response.json({
       ok: false,
       error: 'Internal server error',

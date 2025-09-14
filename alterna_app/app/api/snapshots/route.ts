@@ -10,7 +10,6 @@ export async function GET() {
       .order('captured_at', { ascending: false });
 
     if (fetchError) {
-      console.error('Database fetch error:', fetchError);
       return Response.json({
         ok: false,
         error: 'Failed to fetch snapshots from database',
@@ -39,7 +38,7 @@ export async function GET() {
             .createSignedUrl(relativePath, 3600); // 1時間有効
 
           if (urlError) {
-            console.error(`Signed URL generation failed for ${relativePath}:`, urlError);
+            // Signed URL generation failed, will return null
           }
 
           return {
@@ -50,8 +49,8 @@ export async function GET() {
             captured_at: snapshot.captured_at,
             signed_url: signedUrlData?.signedUrl || null
           };
-        } catch (error) {
-          console.error(`Error processing snapshot ${snapshot.id}:`, error);
+        } catch {
+          // Error processing snapshot, will return null signed_url
           return {
             id: snapshot.id,
             url: snapshot.url,
@@ -68,8 +67,7 @@ export async function GET() {
       ok: true,
       items: snapshotsWithUrls
     });
-  } catch (error) {
-    console.error('Snapshots API error:', error);
+  } catch {
     return Response.json({
       ok: false,
       error: 'Internal server error',
